@@ -37,15 +37,15 @@ function showFamily(arr) {
     /* 2-й способ решения 
 
     function showFamily(arr) {
-    let str = '';
+    let s = '';
 
-    arr.length === 0 ? str = 'Семья пуста' : str = 'Семья состоит из: ';
+    arr.length === 0 ? s = 'Семья пуста' : s = 'Семья состоит из: ';
 
     arr.forEach(member => {
-        str += `${member} `
+        s += `${member} `
     });
 
-    return str;
+    return s;
 }
 */
 
@@ -73,11 +73,62 @@ reverse(someString) => 'gnirts egnarts emos si sihT'
 
 const someString = 'This is some strange string';
 
-function reverse(str) {
-    if (typeof(str) !== 'string') {
+function reverse(s) {
+    if (typeof(s) !== 'string') {
         return "Ошибка!";
     }
-    return str.split('').reverse().join('');
+    return s.split('').reverse().join('');
 }
 
 console.log(reverse(someString))
+
+
+
+/*4) Есть банкомат, который выдает деньги из двух разных банков в разных валютах. 
+Один банк основной с базовыми валютами, второй дополнительный с прочими валютами:
+
+const baseCurrencies = ['USD', 'EUR'];
+const additionalCurrencies = ['UAH', 'RUB', 'CNY'];
+
+Нужно создать главную функцию банкомата availableCurr, которая принимает два аргумента: 
+первый - это массив со всеми доступными валютами из двух банков сразу (сейчас представим, что они не могут повторяться), 
+второй - необязательный аргумент, который указывает ту валюту, которая сейчас закончилась в банкомате. 
+Если массив в первом аргументе пустой - то функция возвращает строку 'Нет доступных валют'. Функция возвращает строку в нужном виде.
+
+Пример:
+availableCurr(['UAH', 'RUB', 'CNY'], 'CNY')
+Вернет строку:
+Доступные валюты:
+UAH
+RUB
+Заметьте:
+- CNY (юань) исчез из списка валют, значит такая валюта закончилась
+- После валюты: стоит перенос строки \n, и после каждой валюты тоже. Это важно для тестов
+- Данные для первого аргумента должны приходить сразу из двух банков, причем сначала baseCurrencies, 
+потом additionalCurrencies по порядку */
+
+
+const baseCurrencies = ['USD', 'EUR'];
+const additionalCurrencies = ['UAH', 'RUB', 'CNY'];
+
+function availableCurr(arr, missingCurr) {
+    let s = '';
+    arr.length === 0 ? s = 'Доступных валют нет' : s = 'Доступные валюты:\n';
+
+    arr.forEach(function(curr, i) {
+        if (curr !== missingCurr) {
+            s += `${curr}\n`;
+        }
+    });
+
+    /* 2-й способ
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] === missingCurr) {
+            continue;
+        }
+        s += `${arr[i]}\n`;
+    }*/
+    return s;
+}
+
+console.log(availableCurr([...baseCurrencies, ...additionalCurrencies], 'CNY'))
